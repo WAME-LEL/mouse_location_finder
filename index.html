@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    span.follower {
+      -ms-user-select: none;
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+
+    li {
+      -ms-user-select: none;
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <span class="follower"> </span>
+
+  <ol class="todos">
+  </ol>
+
+
+  <script>
+    const follower = document.querySelector("span.follower");
+    const todos = document.querySelector('ol.todos');
+
+
+    function move(event) {
+      const e = event;
+      const posX = e.pageX;
+      const posY = e.pageY;
+      follower.firstChild.nodeValue = `${posX}px : ${posY}px`;
+      follower.style.top = posY + 10 +'px';
+      follower.style.left = posX + 10 +'px';
+
+      return {posX, posY};
+
+    }
+
+    function removeElements(elements){
+      
+    }
+
+    function createElement(event){
+      const e = event;
+      const posX = e.pageX;
+      const posY = e.pageY;
+      const newList = document.createElement('li');
+      const newText = document.createTextNode(`${posX}px : ${posY}px`);
+      const del = document.createElement('button');
+      del.textContent = 'X';
+      del.className = 'del';
+      
+
+      newList.appendChild(newText);
+      newList.appendChild(del);
+      todos.appendChild(newList);
+    
+    }
+
+    function click(event) {
+      
+      if(event.target.className === 'del'){
+        event.target.parentElement.remove();
+      }
+      else{
+        createElement(event);
+
+      }
+    }
+
+
+    addEventListener("mousemove", move);
+    addEventListener("click", click);
+
+
+  </script>
+</body>
+
+</html>
